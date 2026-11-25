@@ -1,4 +1,4 @@
-defmodule AlgoPrac.Hw1.Task2Xor do
+defmodule AlgoPrac.Hw1.Task2.Xor do
   @moduledoc """
   Sample functions with distinct time complexities
   (`log2(n)`, `100n`, `~n^3`, `n log2(n) + n`).
@@ -9,16 +9,16 @@ defmodule AlgoPrac.Hw1.Task2Xor do
   @doc """
   It runs in log2(n)
   """
-  @spec b(number()) :: non_neg_integer()
-  def b(n) when n > 0, do: b(n, 0, 0)
+  @spec b(pos_integer()) :: non_neg_integer()
+  def b(n) when is_integer(n) and n > 0, do: b(n, 0, 0)
 
-  defp b(n, _, acc) when n <= 1, do: acc
-  defp b(n, i, acc), do: b(n / 2, i + 1, bxor(acc, i))
+  defp b(1, _, acc), do: acc
+  defp b(n, i, acc), do: b(div(n + 1, 2), i + 1, bxor(acc, i))
 
   @doc """
   It runs in n * 100
   """
-  @spec b(non_neg_integer()) :: non_neg_integer()
+  @spec d(non_neg_integer()) :: non_neg_integer()
   def d(n) when is_integer(n) and n > 0 do
     Enum.reduce(1..n, 0, fn i, acc ->
       Enum.reduce(1..100, acc, fn j, acc ->
@@ -32,7 +32,7 @@ defmodule AlgoPrac.Hw1.Task2Xor do
   @doc """
   It runs in ~ n^3
   """
-  @spec b(non_neg_integer()) :: non_neg_integer()
+  @spec g(non_neg_integer()) :: non_neg_integer()
   def g(n) when is_integer(n) and n > 0 do
     Enum.reduce(1..n, 0, fn i, acc ->
       Enum.reduce(1..i, acc, fn j, acc ->
